@@ -1,0 +1,26 @@
+{{extend 'layout.html'}}
+
+<h1>View Item Shop</h1>
+{{for x in rows:}}
+
+<div class="row">
+    <img class='col col-lg-4 col-md-4 col-sm-4' scr='{{x.shop_img}}' alt="shop_img" >
+    <div class="col col-lg-8">
+        <p class="lead">
+            <b><a href="{{=x.shop_url}}" target="_new"> '{{=x.shop_item}}'</a></b>
+        </p>
+        <p>
+            <b>Category:</b>
+            {{=x.shope_info}}
+        </p>
+        <p>
+            {{=x.shop_category}}
+        </p>
+        <p>
+            {{=x.shop_locate}}
+        </p>
+        <p>
+            {{=x.shope_date_post}}
+        </p>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+{{extend 'layout.html'}}
+<h1>This is the basics/demo.html template</h1>
+<h2>
+    Hello</br> 
+    My name is Dat
+</h2>
+{{=mess}}

@@ -1,0 +1,23 @@
+{{extend 'layout.html'}}
+<h1>This is the shop/have_user.html template</h1>
+
+<table class="table">
+    <th>
+        <td><b>Item Name</b></td>
+        <td><b>Info</b></td>
+        <td><b>Locate</b></td>
+        <td><b>Date Post</b></td>
+        <td><b>Full Name User</b></td>
+    </th>
+    {{for x in rows: }}
+    <tr>
+        <td>{{=x[0]}}</td>
+        <td>{{=x[1]}}</td>
+        <td>{{=x[2]}}</td>
+        <td>{{=x[3]}}</td>
+        <td>{{=x[4]}}</td>
+        <td>{{=user_dict[x[5]]}}</td>
+    </tr>
+</table>
+
+{{pass}}
