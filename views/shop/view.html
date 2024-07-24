@@ -4,15 +4,15 @@
 
 <div style="display: flex;">
     <h5 style="padding: 10px;">
-        <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="/demo/shop/post">Add Item</a>
+        <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','shop','post')}}">Add Item</a>
     </h5>
 
     <h5 style="padding: 10px;">
-        <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="/demo/provider/data">Membership</a>
+        <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','provider','data')}}">Membership</a>
     </h5>
 
     <h5 style="padding: 10px;">
-        <a class="btn-secondary" style="padding: 10px; border-radius: 10px;" href="/demo/shop/have_user">User</a>
+        <a class="btn-secondary" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','shop','have_user')}}">User</a>
     </h5>
 </div>
 {{ for x in rows: }}

@@ -1,9 +1,16 @@
 {{extend 'layout.html'}}
 <h1>This is the shop/have_user.html template</h1>
 
-<h5 style="padding: 10px;">
-    <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="/demo/shop/view">Return to Home Web</a>
-</h5>
+<div style="display: flex;">
+    <h5 style="padding: 10px;">
+        <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','shop','view')}}">Return to Home Web</a>
+    </h5>
+    {{if has_membership:}}
+        <h5 style="padding: 10px;">
+            <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','user_shop','view')}}">Show List User</a>
+        </h5>
+    {{pass}}
+</div>
 
 <table class="table">
     <th>

@@ -1,6 +1,7 @@
 def index():
     return dict(message="Hello from user shop")
 
+@auth.requires_membership('create_user')
 def data():
     rows = db(db.user_shop).select()
     return locals()
@@ -36,6 +37,7 @@ def update():
         response.flash = "please fill"    
     return locals()
 
+@auth.requires_membership('create_user')
 def view():
-    rows = db(db.user_shop).select(orderby=~db.user_shop.id)
+    rows = db(db.user_shop).select(orderby=db.user_shop.id)
     return locals()
