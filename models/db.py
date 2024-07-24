@@ -162,6 +162,7 @@ db.define_table('user_shop',
 
 db.define_table('provider',
                 Field('name', requires=IS_NOT_EMPTY()),
+                Field('user_id', 'reference user_shop'),
                 Field('membership', requires = IS_IN_SET(['individual','company','family']))
 )
 
@@ -171,6 +172,7 @@ db.define_table('shop',
                Field('shop_img', requires=IS_URL()),
                Field('shop_url', requires=IS_URL()),
                Field('shop_category', requires=IS_IN_SET(['News','Events'])),
+               Field('num', type='integer'),
                Field('shop_locate', type='text'),
                Field('shop_date_post', type='date', requires=IS_DATE()),
                Field('shop_user_id', 'reference user_shop'),
@@ -178,6 +180,25 @@ db.define_table('shop',
                auth.signature
                )
 
+db.define_table('carts',
+               Field('shop_id', 'reference shop'),
+               Field('user_id','reference user_shop'),
+               Field('num', type='integer')
+               )
+
+db.define_table('orders',
+               Field('cart_id', 'reference carts'),
+               Field('num', type='integer')
+               )
+
+db.provider.user_id.requires = IS_IN_DB(db, db.user_shop.id, '%(name)s')
+
 db.shop.shop_user_id.requires = IS_IN_DB(db, db.user_shop.id, '%(name)s')
 
 db.shop.provider.requires = IS_IN_DB(db, db.provider.id, '%(name)s')
+
+db.carts.shop_id.requires = IS_IN_DB(db, db.shop.id, '%(shop_item)s')
+
+db.carts.user_id.requires = IS_IN_DB(db, db.user_shop.id, '%(name)s')
+
+db.orders.cart_id.requires = IS_IN_DB(db, db.carts.id)

@@ -1454,3 +1454,203 @@ success!
 success!
 success!
 success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2024-07-24T15:40:45.296333
+CREATE TABLE "more_table"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" CHAR(512)
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2024-07-24T15:54:36.630110
+ALTER TABLE "shop" ADD "num" INTEGER;
+success!
+success!
+success!
+success!
+success!
+timestamp: 2024-07-24T15:58:36.596527
+CREATE TABLE "cart"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "shop_id" INTEGER REFERENCES "shop" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "user_id" INTEGER REFERENCES "user_shop" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "num" INTEGER
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2024-07-24T16:24:01.046168
+CREATE TABLE "carts"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "num" INTEGER
+);
+success!
+timestamp: 2024-07-24T16:24:01.055139
+CREATE TABLE "orders"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "num" INTEGER
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2024-07-24T16:24:38.557422
+ALTER TABLE "carts" ADD "shop_id" INTEGER REFERENCES "shop" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ;
+timestamp: 2024-07-24T16:24:38.568108
+ALTER TABLE "carts" ADD "user_id" INTEGER REFERENCES "user_shop" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ;
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2024-07-24T16:26:25.382655
+ALTER TABLE "orders" ADD "cart_id" INTEGER REFERENCES "carts" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ;
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2024-07-24T16:32:38.497306
+ALTER TABLE "provider" ADD "user_id" INTEGER REFERENCES "user_shop" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ;
+success!
+success!
+success!
+success!
+success!
+success!
