@@ -3,10 +3,11 @@
 def index(): return dict(message="hello from provider.py")
 
 def form():
-    form = SQLFORM.factory(
-        Field('name', requires = IS_NOT_EMPTY()),
-        Field('membership', requires = IS_IN_SET(['individual','company','family']))
-    )
+    # form = SQLFORM.factory(
+    #     Field('name', requires = IS_NOT_EMPTY()),
+    #     Field('membership', requires = IS_IN_SET(['individual','company','family']))
+    # )
+    form = SQLFORM(db.provider)
     if form.process().accepted:
         response.flash = 'form accepted'
         session.name = form.vars.name
@@ -14,6 +15,10 @@ def form():
         redirect(URL('form_accepted'))
     elif form.errors:
         response.flash = 'form errors'
+    return locals()
+
+def data():
+    rows = db(db.provider).select()
     return locals()
 
 def form_accepted():

@@ -12,6 +12,13 @@
   <div class="col-md-12">
     {{if 'message' in globals():}}
     <h2>{{=message}}</h2>
+
+    <h5 style="padding: 10px;">
+      <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="/demo/shop/view">
+        Direct to Your Web
+      </a>
+    </h5>
+
     <p class="lead">{{=T('How did you get here?')}}</p>
     <ol style="word-wrap:break-word;">
       <li>{{=T('You are successfully running web2py')}}</li>

@@ -3,17 +3,17 @@
 <h1>View Item Shop</h1>
 
 <div style="display: flex;">
-<h5 style="padding: 10px;">
-    <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="/demo/shop/post">Add Item</a>
-</h5>
+    <h5 style="padding: 10px;">
+        <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="/demo/shop/post">Add Item</a>
+    </h5>
 
-<h5 style="padding: 10px;">
-    <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="/demo/provider">Membership</a>
-</h5>
+    <h5 style="padding: 10px;">
+        <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="/demo/provider/data">Membership</a>
+    </h5>
 
-<h5 style="padding: 10px;">
-    <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="/demo/user_shop/view">User</a>
-</h5>
+    <h5 style="padding: 10px;">
+        <a class="btn-secondary" style="padding: 10px; border-radius: 10px;" href="/demo/shop/have_user">User</a>
+    </h5>
 </div>
 {{ for x in rows: }}
 
@@ -39,6 +39,12 @@
             <b>Date post:</b>
             {{=x.shop_date_post}}
         </p>
+        {{if x.created_by:}}
+            <p>
+                <b>Who Post:</b>
+                {{=user_dict[x.created_by]}}
+            </p>
+        {{pass}}
     </div>
 </div> 
 

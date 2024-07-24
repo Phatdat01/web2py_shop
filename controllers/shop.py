@@ -34,6 +34,10 @@ def data():
 
 def view():
     rows = db(db.shop).select(orderby=~db.shop.id)
+    user_dict = {}
+    user = db(db.auth_user).select()
+    for x in user:
+        user_dict[x.id] = x.last_name + " " + x.first_name
     return locals()
 
 def have_user():

@@ -160,6 +160,11 @@ db.define_table('user_shop',
                 Field('phone', type='text')
 )
 
+db.define_table('provider',
+                Field('name', requires=IS_NOT_EMPTY()),
+                Field('membership', type='text')
+)
+
 db.define_table('shop',
                Field('shop_item', requires=IS_NOT_EMPTY()),
                Field('shop_info', type='text'),
@@ -168,7 +173,11 @@ db.define_table('shop',
                Field('shop_category', requires=IS_IN_SET(['News','Events'])),
                Field('shop_locate', type='text'),
                Field('shop_date_post', type='date', requires=IS_DATE()),
-               Field('shop_user_id', 'reference user_shop')
+               Field('shop_user_id', 'reference user_shop'),
+               Field('provider', 'reference provider'),
+               auth.signature
                )
 
 db.shop.shop_user_id.requires = IS_IN_DB(db, db.user_shop.id, '%(name)s')
+
+db.shop.provider.requires = IS_IN_DB(db, db.provider.id, '%(name)s')
