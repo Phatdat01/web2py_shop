@@ -1,0 +1,23 @@
+{{extend 'layout.html'}}
+<h1>This is Page show User</h1>
+<div style="display: flex;">
+    <h5 style="padding: 10px;">
+        <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','user_shop','post')}}">Add</a>
+    </h5>
+    <h5 style="padding: 10px;">
+        <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','shop','have_user')}}">Return to Shop User</a>
+    </h5>
+</div>
+<table class="table">
+    <th>
+        <td><b>Name</b></td>
+        <td><b>Phone</b></td>
+    </th>
+    {{for x in rows:}}
+    <tr>
+        <td><b>{{=x.id}}</b></td>
+        <td><b>{{=x.name}}</b></td>
+        <td><b>{{=x.phone}}</b></td>
+    </tr>
+    {{pass}}
+</table>
