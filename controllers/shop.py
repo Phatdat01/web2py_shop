@@ -43,7 +43,7 @@ def have_user():
         user_dict[x.id] = x.last_name + " " + x.first_name
 
     sql = """
-        SELECT shop.id,shop.shop_item, shop.shop_info, shop.shop_locate, shop.shop_date_post, user_shop.id 
+        SELECT shop.id,shop.shop_item, shop.shop_info, shop.shop_locate, shop.shop_date_post, user_shop.name, user_shop.id 
         FROM shop, user_shop WHERE shop.shop_user_id = user_shop.id;
     """
     rows = db.executesql(sql)

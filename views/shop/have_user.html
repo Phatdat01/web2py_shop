@@ -7,6 +7,7 @@
         <td><b>Info</b></td>
         <td><b>Locate</b></td>
         <td><b>Date Post</b></td>
+        <td><b>Name</b></td>
         <td><b>Full Name User</b></td>
     </th>
     {{for x in rows: }}
@@ -16,8 +17,8 @@
         <td>{{=x[2]}}</td>
         <td>{{=x[3]}}</td>
         <td>{{=x[4]}}</td>
-        <td>{{=user_dict[x[5]]}}</td>
+        <td>{{=x[5]}}</td>
+        <td>{{=user_dict[x[6]]}}</td>
     </tr>
+    {{pass}}
 </table>
-
-{{pass}}

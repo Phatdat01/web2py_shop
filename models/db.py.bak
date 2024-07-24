@@ -155,6 +155,11 @@ if configuration.get('scheduler.enabled'):
 # auth.enable_record_versioning(db)
 
 
+db.define_table('user_shop',
+                Field('name', requires=IS_NOT_EMPTY()),
+                Field('phone', type='text')
+)
+
 db.define_table('shop',
                Field('shop_item', requires=IS_NOT_EMPTY()),
                Field('shop_info', type='text'),
@@ -163,11 +168,7 @@ db.define_table('shop',
                Field('shop_category', requires=IS_IN_SET(['News','Events'])),
                Field('shop_locate', type='text'),
                Field('shop_date_post', type='date', requires=IS_DATE()),
-               Field('shop_user_id', type='integer')
+               Field('shop_user_id', 'reference user_shop')
                )
 
-
-db.define_table('user_shop',
-                Field('name', requires=IS_NOT_EMPTY()),
-                Field('phone', type='text')
-)
+db.shop.shop_user_id.requires = IS_IN_DB(db, db.user_shop.id, '%(name)s')
