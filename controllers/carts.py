@@ -1,4 +1,4 @@
-from applications.demo.controllers.form_action import FormAction
+from form_action import FormAction
 
 @auth.requires_login()
 def index():
@@ -12,7 +12,7 @@ def index():
         else:
             rows = db(db.carts.user_id == auth.user.id).select()
         shops = db(db.shop).select()
-        shop_dict = {row.id: (row.shop_item, row.shop_img) for row in shops}
+        shop_dict = {row.id: (row.shop_item, row.shop_img, row.num) for row in shops}
         user_rows = db(db.auth_user).select()
         user_dict = {x.id: f"{x.last_name} {x.first_name}" for x in user_rows}
     except Exception as e:
@@ -60,4 +60,12 @@ def delete():
 
 @auth.requires_login()
 def update():
-    return "Hi"
+    if request.method == 'POST':
+        try:
+            data = request.vars
+            print(data)
+        except Exception as e:
+            print(e)
+            redirect(URL('demo','carts','index'))
+    print("hi")
+    return redirect(URL('demo','carts','index'))

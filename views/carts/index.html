@@ -1,6 +1,7 @@
 {{extend 'layout.html'}}
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="{{=URL('static', 'js/more.js')}}"></script>
 </head>
 <body>
     <h5 style="padding: 10px;">
@@ -21,11 +22,17 @@
                 <td>{{=x.id}}</td>
 
                 {{ 
-                    shop_item, image_link = shop_dict.get(x.shop_id, ('Unknown', ''))
+                    shop_item, image_link,shop_item_num = shop_dict.get(x.shop_id, ('Unknown', ''))
                 }}
                 <td><img src='{{=image_link}}' height="50px" width="50px"/></td>
                 <td>{{=shop_item}}</td>
-                <td>{{=x.num}}</td>
+                <td>
+                    <form class="quantity-form" method="post">
+                        <button type="button" onclick="changeQuantityWithAjax('{{=x.id}}',-1)">-</button>
+                        <input type="number" name="quantity" min="{{1}}" max="{{=shop_item_num}}" value="{{=x.num}}" id="quantity{{=x.id}}" style="width: 50px; border: none;" readonly>
+                        <button type="button" onclick="changeQuantityWithAjax('{{=x.id}}',1)">+</button>
+                    </form>
+                </td>
                 {{if auth_creater:}}
                     <td>{{=user_dict.get(x.user_id)}}</td>
                 {{pass}}
