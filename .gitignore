@@ -1,3 +1,5 @@
 sessions
 errors
 databases/sql.log
+*.bak
+**/*.bak
