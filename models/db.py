@@ -182,7 +182,7 @@ db.define_table('shop',
 
 db.define_table('carts',
                Field('shop_id', 'reference shop'),
-               Field('user_id','reference user_shop'),
+               Field('user_id','reference auth_user'),
                Field('num', type='integer')
                )
 
@@ -199,6 +199,6 @@ db.shop.provider.requires = IS_IN_DB(db, db.provider.id, '%(name)s')
 
 db.carts.shop_id.requires = IS_IN_DB(db, db.shop.id, '%(shop_item)s')
 
-db.carts.user_id.requires = IS_IN_DB(db, db.user_shop.id, '%(name)s')
+db.carts.user_id.requires = IS_IN_DB(db, db.auth_user.id, '%(name)s')
 
 db.orders.cart_id.requires = IS_IN_DB(db, db.carts.id)

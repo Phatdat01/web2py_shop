@@ -40,8 +40,6 @@ def view():
         user_dict[x.id] = x.last_name + " " + x.first_name
     return locals()
 
-    
-
 def have_user():
     user_dict = {}
     user_rows = db(db.auth_user).select()

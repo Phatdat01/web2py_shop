@@ -1,0 +1,40 @@
+{{extend 'layout.html'}}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <h5 style="padding: 10px;">
+        <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','shop','view')}}">Home</a>
+    </h5>
+
+    {{ if not rows: }}
+        <h1>No items found.</h1>
+    {{ else: }}
+        <table class="table">
+            <th>
+                <td><b></b></td>
+                <td><b>item</b></td>
+                <td><b>Num</b></td>
+            </th>
+            {{for x in rows:}}
+            <tr>
+                <td>{{=x.id}}</td>
+
+                {{ 
+                    shop_item, image_link = shop_dict.get(x.shop_id, ('Unknown', ''))
+                }}
+                <td><img src='{{=image_link}}' height="50px" width="50px"/></td>
+                <td>{{=shop_item}}</td>
+                <td>{{=x.num}}</td>
+                {{if auth_creater:}}
+                    <td>{{=user_dict.get(x.user_id)}}</td>
+                {{pass}}
+                <form action="{{=URL('demo', 'carts','delete')}}" method="post">
+                    <input type="hidden" name="id" value="{{=x.id}}">
+                    <td><button type="submit" style="background: none;"><i class="fas fa-trash"></i></button></td>
+                </form>
+            </tr>
+            {{ pass }}
+        </table>
+    {{ pass }}
+</body>
