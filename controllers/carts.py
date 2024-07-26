@@ -27,13 +27,19 @@ def post():
             quantity = int(data.quantity)
             shop_id = int(data.shop_id)
             user_id = int(auth.user.id)
-            current_num = db.shop(shop_id).num
+            check_row = db((db.carts.shop_id == shop_id) & (db.carts.user_id == user_id)).select().first()
+            if check_row:
+                id = int(check_row.id)
+                redirect((URL('demo','provider','form', vars=dict(id=id,num_change=quantity))))
+            current_num = db.shop(shop_id).num  
             new_num = current_num - quantity
             db.carts.insert(shop_id=shop_id, user_id=user_id, num=quantity)
             db(db.shop.id == shop_id).update(num=new_num)
             redirect(URL('demo','carts','index'))
         except Exception as e:
             print(e)
+            if check_row:
+                redirect(URL('demo','carts','update', vars=dict(id=id,num_change=quantity)))
             redirect(URL('demo','carts','index'))
     else:
         redirect(URL('demo','carts','index'))
@@ -60,12 +66,20 @@ def delete():
 
 @auth.requires_login()
 def update():
-    if request.method == 'POST':
-        try:
-            data = request.vars
-            print(data)
-        except Exception as e:
-            print(e)
-            redirect(URL('demo','carts','index'))
-    print("hi")
+    try:
+        print("Hello")
+        data = request.vars
+        num_change = int(data.num_change)
+        id = int(data.id)
+        shop_id = db.carts(id).shop_id
+        current_num_carts = db.carts(id).num
+        current_num_shop = db.shop(shop_id).num
+        new_num_cart = current_num_carts+num_change
+        new_num_shop = current_num_shop-num_change
+        if new_num_cart>0 or new_num_shop >=0:
+            db(db.shop.id == shop_id).update(num = new_num_shop)
+            db(db.carts.id == id).update(num = new_num_cart)
+    except Exception as e:
+        print(e)
+        redirect(URL('demo','carts','index'))
     return redirect(URL('demo','carts','index'))

@@ -8,20 +8,18 @@ function changeQuantity(delta) {
     }
 }
 
-function updateQuantity(id, delta) {
+function updateQuantity(id, numChange) {
     var formData = new FormData();
     formData.append('id', id); 
-    formData.append('delta', delta);
+    formData.append('num_change', numChange);
     fetch("update", {
         method: 'POST',
         body: formData,
     })
     .then(data => {
         if (data) {
-            // Update the UI or show a success message
             console.log('Update successful');
         } else {
-            // Handle error
             console.error('Update failed');
         }
     })
@@ -30,7 +28,7 @@ function updateQuantity(id, delta) {
     });
 }
 
-function changeQuantityWithAjax(id, delta) {
-    changeQuantity(delta)
-    updateQuantity(delta);
+function changeQuantityWithAjax(id, numChange) {
+    changeQuantity(numChange)
+    updateQuantity(id, numChange);
 }

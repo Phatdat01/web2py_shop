@@ -53,7 +53,7 @@
                     <button type="button" onclick="changeQuantity(1)">+</button>
                     
                     <input type="hidden" name="shop_id" value="{{=x.id}}">
-                    <button type="submit" class="btn-danger">Add to Cart</button>
+                    <button type="submit" class="btn-danger" {{if x.num ==0:}} disabled style="opacity:20%;" {{pass}}>Add to Cart</button>
                 </form>
             </p>
             <p>

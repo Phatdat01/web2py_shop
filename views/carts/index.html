@@ -28,9 +28,9 @@
                 <td>{{=shop_item}}</td>
                 <td>
                     <form class="quantity-form" method="post">
-                        <button type="button" onclick="changeQuantityWithAjax('{{=x.id}}',-1)">-</button>
+                        <button type="button" onclick="changeQuantityWithAjax('{{=x.id}}', -1)">-</button>
                         <input type="number" name="quantity" min="{{1}}" max="{{=shop_item_num}}" value="{{=x.num}}" id="quantity{{=x.id}}" style="width: 50px; border: none;" readonly>
-                        <button type="button" onclick="changeQuantityWithAjax('{{=x.id}}',1)">+</button>
+                        <button type="button" onclick="changeQuantityWithAjax('{{=x.id}}', 1)">+</button>
                     </form>
                 </td>
                 {{if auth_creater:}}
