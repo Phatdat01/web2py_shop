@@ -1,9 +1,0 @@
-# -*- coding: utf-8 -*-
-# try something like
-
-def first_step():
-    message = "Hello my name is Dat"
-    return locals()
-
-
-def index(): return dict(message="hello from basics.py")

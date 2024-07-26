@@ -1,2 +1,8 @@
 sessions
 errors
+__pycache__
+**/__pycache__
+*.log
+**/*.log
+*.bak
+**/*.bak
