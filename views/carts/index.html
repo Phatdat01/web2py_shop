@@ -5,7 +5,7 @@
 </head>
 <body>
     <h5 style="padding: 10px;">
-        <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','shop','view')}}">Home</a>
+        <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="{{=URL('web2py_shop','shop','view')}}">Home</a>
     </h5>
 
     {{ if not rows: }}
@@ -36,7 +36,7 @@
                 {{if auth_creater:}}
                     <td>{{=user_dict.get(x.user_id)}}</td>
                 {{pass}}
-                <form action="{{=URL('demo', 'carts','delete')}}" method="post">
+                <form action="{{=URL('web2py_shop', 'carts','delete')}}" method="post">
                     <input type="hidden" name="id" value="{{=x.id}}">
                     <td><button type="submit" style="background: none;"><i class="fas fa-trash"></i></button></td>
                 </form>

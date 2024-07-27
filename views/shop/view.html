@@ -35,7 +35,7 @@
                             {{=x.num}}
                         </p>
                         <p>
-                            <form action="{{=URL('demo', 'carts','post')}}" method="post">
+                            <form action="{{=URL('web2py_shop', 'carts','post')}}" method="post">
                                 <button type="button" onclick="changeQuantity(-1)">-</button>
                                 <input type="number" name="quantity" min="1" max="{{=x.num}}" value="1" id="quantity{{=x.id}}">
                                 <button type="button" onclick="changeQuantity(1)">+</button>

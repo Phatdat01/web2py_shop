@@ -29,19 +29,19 @@ def post():
             check_row = db((db.carts.shop_id == shop_id) & (db.carts.user_id == user_id)).select().first()
             if check_row:
                 id = int(check_row.id)
-                redirect((URL('demo','provider','form', vars=dict(id=id,num_change=quantity))))
+                redirect((URL('web2py_shop','provider','form', vars=dict(id=id,num_change=quantity))))
             current_num = db.shop(shop_id).num  
             new_num = current_num - quantity
             db.carts.insert(shop_id=shop_id, user_id=user_id, num=quantity)
             db(db.shop.id == shop_id).update(num=new_num)
-            redirect(URL('demo','carts','index'))
+            redirect(URL('web2py_shop','carts','index'))
         except Exception as e:
             print(e)
             if check_row:
-                redirect(URL('demo','carts','update', vars=dict(id=id,num_change=quantity)))
-            redirect(URL('demo','carts','index'))
+                redirect(URL('web2py_shop','carts','update', vars=dict(id=id,num_change=quantity)))
+            redirect(URL('web2py_shop','carts','index'))
     else:
-        redirect(URL('demo','carts','index'))
+        redirect(URL('web2py_shop','carts','index'))
 
 @auth.requires_login()
 def delete():
@@ -56,12 +56,12 @@ def delete():
                 new_num_shop = current_num_shop + current_num_carts
                 db(db.shop.id == shop_id).update(num=new_num_shop)
                 db(db.carts.id == id).delete()
-                redirect(URL('demo','carts','index'))
+                redirect(URL('web2py_shop','carts','index'))
         except Exception as e:
             print(e)
-            redirect(URL('demo','carts','index'))
+            redirect(URL('web2py_shop','carts','index'))
     else:
-        redirect(URL('demo','carts','index'))
+        redirect(URL('web2py_shop','carts','index'))
 
 @auth.requires_login()
 def update():
@@ -79,5 +79,5 @@ def update():
             db(db.carts.id == id).update(num = new_num_cart)
     except Exception as e:
         print(e)
-        redirect(URL('demo','carts','index'))
-    return redirect(URL('demo','carts','index'))
+        redirect(URL('web2py_shop','carts','index'))
+    return redirect(URL('web2py_shop','carts','index'))

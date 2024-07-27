@@ -9,7 +9,7 @@ def post():
 
     head = H1("Post shop Demo")
     button = view_process.show_button(
-        href=URL('demo','shop','view'),
+        href=URL('web2py_shop','shop','view'),
         text="Cancel",
         class_name="btn-danger"
     )
@@ -33,7 +33,7 @@ def done():
     view_process = FrontendView()
     head = H1("Action Successfully!!!")
     button = view_process.show_button(
-        href=URL('demo','shop','view'),
+        href=URL('web2py_shop','shop','view'),
         text="Return to Home!",
         class_name="btn-primary"
     )
@@ -45,10 +45,10 @@ def view():
 
     button = view_process.show_buttons(
         list_button=[
-            [URL('demo','shop','post'),"Add Item"],
-            [URL('demo','provider','data'),"Membership"],
-            [URL('demo','shop','have_user'),"User"],
-            [URL('demo','carts','index'),"Cart"]
+            [URL('web2py_shop','shop','post'),"Add Item"],
+            [URL('web2py_shop','provider','data'),"Membership"],
+            [URL('web2py_shop','shop','have_user'),"User"],
+            [URL('web2py_shop','carts','index'),"Cart"]
         ]
     )
 
@@ -71,9 +71,9 @@ def have_user():
         user_dict[x.id] = x.last_name + " " + x.first_name
     has_membership = auth.has_membership('create_user')
     
-    list_button =[[URL('demo','shop','view'),"Return to Home Web"]]
+    list_button =[[URL('web2py_shop','shop','view'),"Return to Home Web"]]
     if has_membership:
-        list_button.insert(0,[URL('demo','user_shop','view'),"Show List User"])
+        list_button.insert(0,[URL('web2py_shop','user_shop','view'),"Show List User"])
     button = view_process.show_buttons(list_button=list_button)
     
     # Query Not injection
