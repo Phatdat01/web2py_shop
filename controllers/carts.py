@@ -7,8 +7,7 @@ def index():
     auth_creater = auth.has_membership('create_user')
     try:
         if auth_creater:
-            process = FormAction()
-            rows = process.index(db.carts)
+            rows = db(db.carts).select()
         else:
             rows = db(db.carts.user_id == auth.user.id).select()
         shops = db(db.shop).select()

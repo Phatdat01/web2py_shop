@@ -16,7 +16,7 @@ def form():
     button = view_process.show_button(
         href=URL('demo','provider','data'),
         text="Cancel",
-        class_name="btn-primary"
+        class_name="btn-danger"
     )
 
     form = SQLFORM(db.provider)
@@ -26,25 +26,16 @@ def form():
     return dict(form=form)
 
 def data():
-    th_list = ["Name","Member Ship"]
+    th_list = ["Name","Membership"]
     column_list = ["id","name","membership"]
     view_process = FrontendView()
 
     head = H1("This is the provider/data.html template")
-
-    button1 = view_process.show_button(
-        href=URL('demo','provider','form'),
-        text="Add",
-        class_name="btn-success"
-    )
-    button2 = view_process.show_button(
-        href=URL('demo','shop','view'),
-        text="Return to Home Web",
-        class_name="btn-primary"
-    )
-    button = view_process.flex_button(list_button = [button1,button2])
-
-
+    button = view_process.show_buttons(
+        list_button=[
+            ['URL('demo','provider','form')',"Add"],
+            [URL('demo','shop','view'),"Return to Home Web"]
+    ])
     rows = db(db.provider).select()
     content = view_process.show_table(th_list=th_list,column_list=column_list,table=rows)
     

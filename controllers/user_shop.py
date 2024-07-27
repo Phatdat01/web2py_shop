@@ -20,8 +20,18 @@ def done():
 def post():
     form_process = FormAction()
     form = SQLFORM(db.user_shop)
-    form = form_process.form_accepted(form=form)  
-    return form
+    view_process = FrontendView()
+
+    head = H1("Create New User")
+    button = view_process.show_button(
+        href=URL("demo","user_shop","view"),
+        text="Cancel",
+        class_name="btn-danger"
+    )
+
+    form = form_process.form_accepted(form=form)
+    form = view_process.display_body(head=head,button=button,content=form)
+    return dict(form=form)
 
 def update():
     form_process = FormAction()
@@ -37,19 +47,14 @@ def view():
     column_list = ['id', 'name', 'phone']
 
     view_process = FrontendView()
-    add_button = view_process.show_button(
-        href=URL('demo','user_shop','post'),
-        text="Add",
-        class_name="btn-success"
-    )
-    return_button = view_process.show_button(
-        href=URL('demo','shop','have_user'),
-        text="Return to Shop User",
-        class_name="btn-primary"
-    )
 
     head = H1("This is Page show User")
-    button = view_process.flex_button(list_button=[add_button,return_button])
+    button = view_process.show_buttons(
+        list_button=[
+            [URL('demo','user_shop','post'),"Add"],
+            [URL('demo','shop','have_user'),"Return to Shop User"]
+        ]
+    )
     content = view_process.show_table(th_list,column_list,rows)
     
     form = view_process.display_body(head=head, button=button, content=content)
