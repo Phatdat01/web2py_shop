@@ -2,13 +2,12 @@ from form_action import FormAction
 
 @auth.requires_login()
 def index():
-    process = FormAction(db, session, response)
     shop_dict = []
     user_dict = []
     auth_creater = auth.has_membership('create_user')
     try:
         if auth_creater:
-            rows = process.index(db.carts)
+            rows = db(db.carts).select()
         else:
             rows = db(db.carts.user_id == auth.user.id).select()
         shops = db(db.shop).select()
@@ -67,7 +66,6 @@ def delete():
 @auth.requires_login()
 def update():
     try:
-        print("Hello")
         data = request.vars
         num_change = int(data.num_change)
         id = int(data.id)

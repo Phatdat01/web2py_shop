@@ -3,74 +3,64 @@
     <script src="{{=URL('static', 'js/more.js')}}"></script>
 </head>
 <body>
-    <h1>View Item Shop</h1>
-
-    <div style="display: flex;">
-        <h5 style="padding: 10px;">
-            <a class="btn-success" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','shop','post')}}">Add Item</a>
-        </h5>
-
-        <h5 style="padding: 10px;">
-            <a class="btn-primary" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','provider','data')}}">Membership</a>
-        </h5>
-
-        <h5 style="padding: 10px;">
-            <a class="btn-secondary" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','shop','have_user')}}">User</a>
-        </h5>
-
-        <h5 style="padding: 10px;">
-            <a class="btn-danger" style="padding: 10px; border-radius: 10px;" href="{{=URL('demo','carts','index')}}">Cart</a>
-        </h5>
-    </div>
-    {{ for x in rows: }}
-
-    <div class="row">
-        <img class='col col-lg-4 col-md-4 col-sm-4' style="padding: 10px; height: 200px;" src='{{=x.shop_img}}' alt="shop_img" />
-        <div class="col col-lg-8">
-            <p class="lead">
-                <b><a href="{{=x.shop_url}}" target="_new"> '{{=x.shop_item}}'</a></b>
-            </p>
-            <p>
-                <b>Category:</b>
-                {{=x.shop_category}}
-            </p>
-            <p>
-                <b>Info:</b>
-                {{=x.shop_info}}
-            </p>
-            <p>
-                <b>Locate:</b>
-                {{=x.shop_locate}}
-            </p>
-            <p>
-                <b>In stock:</b>
-                {{=x.num}}
-            </p>
-            <p>
-                <form action="{{=URL('demo', 'carts','post')}}" method="post">
-                    <button type="button" onclick="changeQuantity(-1)">-</button>
-                    <input type="number" name="quantity" min="1" max="{{=x.num}}" value="1" id="quantity{{=x.id}}">
-                    <button type="button" onclick="changeQuantity(1)">+</button>
-                    
-                    <input type="hidden" name="shop_id" value="{{=x.id}}">
-                    <button type="submit" class="btn-danger" {{if x.num ==0:}} disabled style="opacity:20%;" {{pass}}>Add to Cart</button>
-                </form>
-            </p>
-            <p>
-                <b>Date post:</b>
-                {{=x.shop_date_post}}
-            </p>
-            {{if x.created_by:}}
-                <p>
-                    <b>Who Post:</b>
-                    {{=user_dict[x.created_by]}}
-                </p>
-            {{pass}}
-            <p>
-                <button class="btn-primary">Purchase</button>
-            </p>
+    {{=button}}
+    <div class="container">
+        <div class="row justify-content-center">
         </div>
-    </div> 
-
-    {{pass}}
+        {{ for x in rows: }}
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img class='img-fluid' style="height: 200px; width: 200px;" src='{{=x.shop_img}}' alt="shop_img" />
+                    </div>
+                    <div class="col-lg-8">
+                        <p class="lead">
+                            <b><a href="{{=x.shop_url}}" target="_new"> '{{=x.shop_item}}'</a></b>
+                        </p>
+                        <p>
+                            <b>Category:</b>
+                            {{=x.shop_category}}
+                        </p>
+                        <p>
+                            <b>Info:</b>
+                            {{=x.shop_info}}
+                        </p>
+                        <p>
+                            <b>Locate:</b>
+                            {{=x.shop_locate}}
+                        </p>
+                        <p>
+                            <b>In stock:</b>
+                            {{=x.num}}
+                        </p>
+                        <p>
+                            <form action="{{=URL('demo', 'carts','post')}}" method="post">
+                                <button type="button" onclick="changeQuantity(-1)">-</button>
+                                <input type="number" name="quantity" min="1" max="{{=x.num}}" value="1" id="quantity{{=x.id}}">
+                                <button type="button" onclick="changeQuantity(1)">+</button>
+                                
+                                <input type="hidden" name="shop_id" value="{{=x.id}}">
+                                <button type="submit" class="btn-danger" {{if x.num ==0:}} disabled style="opacity:20%;" {{pass}}>Add to Cart</button>
+                            </form>
+                        </p>
+                        <p>
+                            <b>Date post:</b>
+                            {{=x.shop_date_post}}
+                        </p>
+                        {{if x.created_by:}}
+                            <p>
+                                <b>Who Post:</b>
+                                {{=user_dict[x.created_by]}}
+                            </p>
+                        {{pass}}
+                        <p>
+                            <button class="btn-primary">Purchase</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{pass}}
+    </div>
 </body>
