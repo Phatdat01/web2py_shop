@@ -33,7 +33,7 @@ def data():
     head = H1("This is the provider/data.html template")
     button = view_process.show_buttons(
         list_button=[
-            ['URL('demo','provider','form')',"Add"],
+            [URL('demo','provider','form'),"Add"],
             [URL('demo','shop','view'),"Return to Home Web"]
     ])
     rows = db(db.provider).select()

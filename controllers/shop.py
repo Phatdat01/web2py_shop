@@ -64,11 +64,17 @@ def view():
     )
 
 def have_user():
+    view_process = FrontendView()
     user_dict = {}
     user_rows = db(db.auth_user).select()
     for x in user_rows:
         user_dict[x.id] = x.last_name + " " + x.first_name
     has_membership = auth.has_membership('create_user')
+    
+    list_button =[[URL('demo','shop','view'),"Return to Home Web"]]
+    if has_membership:
+        list_button.insert(0,[URL('demo','user_shop','view'),"Show List User"])
+    button = view_process.show_buttons(list_button=list_button)
     
     # Query Not injection
     query = (db.shop.shop_user_id == db.user_shop.id)
@@ -87,6 +93,7 @@ def have_user():
     ]
 
     return dict(
-        has_membership=has_membership,
-        rows=rows
+        button=button,
+        rows=rows,
+        user_dict=user_dict
     )
