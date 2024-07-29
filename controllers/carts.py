@@ -1,4 +1,5 @@
 from form_action import FormAction
+from notice import Notice
 
 @auth.requires_login()
 def index():
@@ -27,6 +28,15 @@ def post():
             shop_id = int(data.shop_id)
             user_id = int(auth.user.id)
             check_row = db((db.carts.shop_id == shop_id) & (db.carts.user_id == user_id)).select().first()
+            
+            notice_process = Notice()
+            notice_process.mail_item_notice(
+                mail_to_list=['nguyen321lht@gmail.com'],
+                action="add",
+                item=db.shop(shop_id).shop_item,
+                num=quantity
+            )
+
             if check_row:
                 id = int(check_row.id)
                 redirect((URL('web2py_shop','provider','form', vars=dict(id=id,num_change=quantity))))
@@ -56,6 +66,14 @@ def delete():
                 new_num_shop = current_num_shop + current_num_carts
                 db(db.shop.id == shop_id).update(num=new_num_shop)
                 db(db.carts.id == id).delete()
+
+                notice_process = Notice()
+                notice_process.mail_item_notice(
+                    mail_to_list=['nguyen321lht@gmail.com'],
+                    action="return",
+                    item=db.shop(shop_id).shop_item,
+                    num=current_num_carts
+                )
                 redirect(URL('web2py_shop','carts','index'))
         except Exception as e:
             print(e)
@@ -74,7 +92,7 @@ def update():
         current_num_shop = db.shop(shop_id).num
         new_num_cart = current_num_carts+num_change
         new_num_shop = current_num_shop-num_change
-        if new_num_cart>0 or new_num_shop >=0:
+        if (new_num_cart>0 or new_num_shop >=0) and (auth.has_membership('create_user') or db.carts(id).user_id == auth.user.id):
             db(db.shop.id == shop_id).update(num = new_num_shop)
             db(db.carts.id == id).update(num = new_num_cart)
     except Exception as e:

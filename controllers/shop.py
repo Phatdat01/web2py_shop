@@ -57,10 +57,17 @@ def view():
     user = db(db.auth_user).select()
     for x in user:
         user_dict[x.id] = x.last_name + " " + x.first_name
+
+    purchase_btn = view_process.show_button(
+        href="",
+        text="Purchase",
+        class_name="btn-warning"
+    )
     return dict(
         button=button,
         user_dict=user_dict,
-        rows=rows
+        rows=rows,
+        purchase_btn=purchase_btn
     )
 
 def have_user():
