@@ -7,7 +7,7 @@
 # ---- example index page ----
 def index():
     response.flash = T("Hello World")
-    redirect(URL('demo','shop','view'))
+    redirect(URL('web2py_shop','shop','view'))
 
 # ---- API (example) -----
 @auth.requires_login()

@@ -24,7 +24,7 @@ def post():
 
     head = H1("Create New User")
     button = view_process.show_button(
-        href=URL("demo","user_shop","view"),
+        href=URL("web2py_shop","user_shop","view"),
         text="Cancel",
         class_name="btn-danger"
     )
@@ -51,8 +51,8 @@ def view():
     head = H1("This is Page show User")
     button = view_process.show_buttons(
         list_button=[
-            [URL('demo','user_shop','post'),"Add"],
-            [URL('demo','shop','have_user'),"Return to Shop User"]
+            [URL('web2py_shop','user_shop','post'),"Add"],
+            [URL('web2py_shop','shop','have_user'),"Return to Shop User"]
         ]
     )
     content = view_process.show_table(th_list,column_list,rows)

@@ -14,7 +14,7 @@ def form():
     head = H1("This is the provider/form.html template")
 
     button = view_process.show_button(
-        href=URL('demo','provider','data'),
+        href=URL('web2py_shop','provider','data'),
         text="Cancel",
         class_name="btn-danger"
     )
@@ -33,8 +33,8 @@ def data():
     head = H1("This is the provider/data.html template")
     button = view_process.show_buttons(
         list_button=[
-            [URL('demo','provider','form'),"Add"],
-            [URL('demo','shop','view'),"Return to Home Web"]
+            [URL('web2py_shop','provider','form'),"Add"],
+            [URL('web2py_shop','shop','view'),"Return to Home Web"]
     ])
     rows = db(db.provider).select()
     content = view_process.show_table(th_list=th_list,column_list=column_list,table=rows)
