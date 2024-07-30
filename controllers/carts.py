@@ -1,36 +1,43 @@
 from notice import Notice
 from form_action import FormAction
-
+from frontend_view import FrontendView
 class Carts:
     def index(self):
-        shop_dict = []
-        user_dict = []
+        view_process = FrontendView()
+        button = view_process.show_buttons(
+            list_button=[
+                [URL('web2py_shop','orders','index'),"Purchased"],
+                [URL('web2py_shop','shop','view'),"Home"]
+            ]
+        )
         auth_creater = auth.has_membership('create_user')
-        try:
-            if auth_creater:
-                # rows = db(db.orders.cart_id == None).select(
-                #     db.carts.ALL, db.orders.ALL, 
-                #     left=db.orders.on(db.carts.id == db.orders.cart_id)
-                # )
-                # print(rows)
-                rows = db(db.carts).select()
-            else:
-                rows = db(db.carts.user_id == auth.user.id).select()
-            shops = db(db.shop).select()
-            shop_dict = {row.id: (row.shop_item, row.shop_img, row.num) for row in shops}
-            user_rows = db(db.auth_user).select()
-            user_dict = {x.id: f"{x.last_name} {x.first_name}" for x in user_rows}
-        except Exception as e:
-            print(e)
-            rows = []
-        
-        return rows, shop_dict, auth_creater, user_dict
+        if auth_creater:
+            rows = db(db.carts.shop_id == db.shop.id).select()
+        else:
+            rows = db((db.carts.shop_id == db.shop.id) & (db.carts.user_id == auth.user.id)).select()
+
+        th_list =["Shop Item","Num"]
+        column_list=["carts.id","shop.shop_img","shop.shop_item","carts.num", "show_user","purchase_btn","delete_btn"]
+        table = view_process.show_table(
+            th_list=th_list,
+            column_list=column_list,
+            table=rows,
+            is_cart=True,
+            permission= auth_creater
+        )
+
+        form = view_process.display_body(
+            head="",
+            button=button,
+            content=table
+        )
+        return form
 
 @auth.requires_login()
 def index():
     cart_show = Carts()
-    rows, shop_dict, auth_creater, user_dict = cart_show.index()
-    return dict(rows=rows, shop_dict=shop_dict, auth_creater=auth_creater, user_dict=user_dict)
+    form = cart_show.index()
+    return dict(form=form)
 
 @auth.requires_login()
 def post():
