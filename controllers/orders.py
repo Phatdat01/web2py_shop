@@ -5,9 +5,9 @@ class Orders:
         view_process = FrontendView()
         auth_creater = auth.has_membership('create_user')
         if auth_creater:
-            rows = db((db.orders.cart_id==db.carts.id) & (db.carts.shop_id==db.shop.id)).select()
+            rows = db((db.auth_user.id==db.carts.user_id) & (db.orders.cart_id==db.carts.id) & (db.carts.shop_id==db.shop.id)).select()
         else:
-            rows = db((db.carts.user_id == auth.user.id) & (db.orders.cart_id==db.carts.id) & (db.carts.shop_id==db.shop.id)).select()
+            rows = db((db.auth_user.id==db.carts.user_id) & (db.carts.user_id == auth.user.id) & (db.orders.cart_id==db.carts.id) & (db.carts.shop_id==db.shop.id)).select()
 
         head = H1("All Purchased")
         button = view_process.show_buttons(
@@ -17,7 +17,7 @@ class Orders:
             ]
         )
         th_list=["","Shop Item","Num"]
-        column_list=["orders.id", "shop.shop_img","shop.shop_item","carts.num", "carts.user_id"]
+        column_list=["orders.id", "shop.shop_img","shop.shop_item","carts.num", "show_user"]
         table = view_process.show_table(
             th_list=th_list,
             column_list=column_list,

@@ -12,9 +12,9 @@ class Carts:
         )
         auth_creater = auth.has_membership('create_user')
         if auth_creater:
-            rows = db(db.carts.shop_id == db.shop.id).select()
+            rows = db((db.auth_user.id==db.carts.user_id) & (db.carts.shop_id == db.shop.id)).select()
         else:
-            rows = db((db.carts.shop_id == db.shop.id) & (db.carts.user_id == auth.user.id)).select()
+            rows = db((db.auth_user.id==db.carts.user_id) & (db.carts.shop_id == db.shop.id) & (db.carts.user_id == auth.user.id)).select()
 
         th_list =["Shop Item","Num"]
         column_list=["carts.id","shop.shop_img","shop.shop_item","carts.num", "show_user","purchase_btn","delete_btn"]

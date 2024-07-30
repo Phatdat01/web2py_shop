@@ -74,7 +74,7 @@ class FrontendView:
             hidden = True
             if permission == True:
                 hidden = False
-            td = TD(x.get('carts.user_id'), _hidden=hidden)
+            td = TD(f"{x.get('auth_user.last_name')} {x.get('auth_user.first_name')}", _hidden=hidden)
         #Check web is cart, if right, add change number
         elif is_cart and col =="carts.num":
             td = FORM(
