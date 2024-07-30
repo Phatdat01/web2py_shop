@@ -68,7 +68,7 @@ class FrontendView:
                 url=URL('web2py_shop', 'carts','delete'),
                 style="background: none;",
                 text= I(_class="fas fa-trash"),
-                id=x.get("carts.user_id")
+                id=x.get("carts.id")
             )
         elif col == "show_user":
             hidden = True
@@ -79,7 +79,7 @@ class FrontendView:
         elif is_cart and col =="carts.num":
             td = FORM(
                 self.show_change_btn(x.get('carts.id'), -1),
-                INPUT(
+                INPUT(  
                     _type="number",
                     _name="quantity",
                     _min=1,
@@ -103,15 +103,17 @@ class FrontendView:
 
     def show_table(self, th_list: List[str], column_list: List[str], table, is_cart: bool = False, permission:bool=False):
         try:
-            th = TH(XML("".join(str(TD(B(name))) for name in th_list)))
-            tr = [
-                TR(
-                    *[TD(self.check_col(x,is_cart,col, permission)) for col in column_list]
-                )
-                for x in table
-            ]
-            table_element = TABLE(th, *tr, _class="table")
-            return table_element
+            if table:
+                th = TH(XML("".join(str(TD(B(name))) for name in th_list)))
+                tr = [
+                    TR(
+                        *[TD(self.check_col(x,is_cart,col, permission)) for col in column_list]
+                    )
+                    for x in table
+                ]
+                table_element = TABLE(th, *tr, _class="table")
+                return table_element
+            return H1("No Item Found!")
         except NameError as e:
             print(f"NameError: {e}")
             return e
