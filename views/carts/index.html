@@ -29,17 +29,25 @@
                 <td>
                     <form class="quantity-form" method="post">
                         <button type="button" onclick="changeQuantityWithAjax('{{=x.id}}', -1)">-</button>
-                        <input type="number" name="quantity" min="{{1}}" max="{{=shop_item_num}}" value="{{=x.num}}" id="quantity{{=x.id}}" style="width: 50px; border: none;" readonly>
+                        <input type="number" name="quantity" min="1" max="{{=shop_item_num}}" value="{{=x.num}}" id="quantity{{=x.id}}" style="width: 50px; border: none;" readonly>
                         <button type="button" onclick="changeQuantityWithAjax('{{=x.id}}', 1)">+</button>
                     </form>
                 </td>
                 {{if auth_creater:}}
                     <td>{{=user_dict.get(x.user_id)}}</td>
                 {{pass}}
-                <form action="{{=URL('web2py_shop', 'carts','delete')}}" method="post">
-                    <input type="hidden" name="id" value="{{=x.id}}">
-                    <td><button type="submit" style="background: none;"><i class="fas fa-trash"></i></button></td>
-                </form>
+                <td>
+                    <form action="{{=URL('web2py_shop', 'orders','purchase')}}" method="post">
+                        <input type="hidden" name="id" value="{{=x.id}}">
+                        <button type="submit" class="btn-warning">Purchase</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{=URL('web2py_shop', 'carts','delete')}}" method="post">
+                        <input type="hidden" name="id" value="{{=x.id}}">
+                        <button type="submit" style="background: none;"><i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
             {{ pass }}
         </table>

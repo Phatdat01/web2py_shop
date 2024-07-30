@@ -1,22 +1,35 @@
-from form_action import FormAction
 from notice import Notice
+from form_action import FormAction
+
+class Carts:
+    def index(self):
+        shop_dict = []
+        user_dict = []
+        auth_creater = auth.has_membership('create_user')
+        try:
+            if auth_creater:
+                # rows = db(db.orders.cart_id == None).select(
+                #     db.carts.ALL, db.orders.ALL, 
+                #     left=db.orders.on(db.carts.id == db.orders.cart_id)
+                # )
+                # print(rows)
+                rows = db(db.carts).select()
+            else:
+                rows = db(db.carts.user_id == auth.user.id).select()
+            shops = db(db.shop).select()
+            shop_dict = {row.id: (row.shop_item, row.shop_img, row.num) for row in shops}
+            user_rows = db(db.auth_user).select()
+            user_dict = {x.id: f"{x.last_name} {x.first_name}" for x in user_rows}
+        except Exception as e:
+            print(e)
+            rows = []
+        
+        return rows, shop_dict, auth_creater, user_dict
 
 @auth.requires_login()
 def index():
-    shop_dict = []
-    user_dict = []
-    auth_creater = auth.has_membership('create_user')
-    try:
-        if auth_creater:
-            rows = db(db.carts).select()
-        else:
-            rows = db(db.carts.user_id == auth.user.id).select()
-        shops = db(db.shop).select()
-        shop_dict = {row.id: (row.shop_item, row.shop_img, row.num) for row in shops}
-        user_rows = db(db.auth_user).select()
-        user_dict = {x.id: f"{x.last_name} {x.first_name}" for x in user_rows}
-    except Exception as e:
-        rows = []
+    cart_show = Carts()
+    rows, shop_dict, auth_creater, user_dict = cart_show.index()
     return dict(rows=rows, shop_dict=shop_dict, auth_creater=auth_creater, user_dict=user_dict)
 
 @auth.requires_login()
