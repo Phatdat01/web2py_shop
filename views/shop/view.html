@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-lg-8">
                         <p class="lead">
-                            <b><a href="{{=x.shop_url}}" target="_new"> '{{=x.shop_item}}'</a></b>
+                            <b><a href="{{=x.shop_url}}" target="_new"> {{=x.shop_item}}</a></b>
                         </p>
                         <p>
                             <b>Category:</b>
@@ -41,7 +41,10 @@
                                 <button type="button" onclick="changeQuantity(1)">+</button>
                                 
                                 <input type="hidden" name="shop_id" value="{{=x.id}}">
-                                <button type="submit" class="btn-danger" {{if x.num ==0:}} disabled style="opacity:20%;" {{pass}}>Add to Cart</button>
+                                <div style="display: flex;">
+                                    <button type="submit" class="btn-danger" {{if x.num ==0:}} disabled style="opacity:20%;" {{pass}}>Add to Cart</button>
+                                    {{=purchase_btn}}
+                                </div>
                             </form>
                         </p>
                         <p>
@@ -54,7 +57,7 @@
                                 {{=user_dict[x.created_by]}}
                             </p>
                         {{pass}}
-                        {{=purchase_btn}}
+                        
                     </div>
                 </div>
             </div>

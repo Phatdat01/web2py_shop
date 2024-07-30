@@ -42,14 +42,15 @@ def done():
 
 def view():
     view_process = FrontendView()
-
+    list_button = [
+        [URL('web2py_shop','shop','post'),"Add Item"],
+        [URL('web2py_shop','provider','data'),"Membership"],
+        [URL('web2py_shop','carts','index'),"Cart"]
+    ]
+    if auth.user:
+        list_button.insert(2,[URL('web2py_shop','shop','have_user'),"User"])
     button = view_process.show_buttons(
-        list_button=[
-            [URL('web2py_shop','shop','post'),"Add Item"],
-            [URL('web2py_shop','provider','data'),"Membership"],
-            [URL('web2py_shop','shop','have_user'),"User"],
-            [URL('web2py_shop','carts','index'),"Cart"]
-        ]
+        list_button=list_button
     )
 
     rows = db(db.shop).select(orderby=~db.shop.id)
