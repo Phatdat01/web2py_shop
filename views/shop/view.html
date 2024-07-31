@@ -31,7 +31,7 @@
                             {{=x.shop_locate}}
                         </p>
                         <p>
-                            <b>In stock:</b>
+                            <b>In stocsk:</b>
                             {{=x.num}}
                         </p>
                         <p>
@@ -41,10 +41,10 @@
                                 <button type="button" onclick="changeQuantity(1)">+</button>
                                 
                                 <input type="hidden" name="shop_id" value="{{=x.id}}">
+                                <input type="hidden" name="purchase" value="0">
                                 <div style="display: flex;">
                                     <button type="submit" class="btn-danger" {{if x.num ==0:}} disabled style="opacity:20%;" {{pass}}>Add to Cart</button>
-                                    {{=purchase_btn}}
-                                </div>
+                                    <button type="button" class="btn-warning" onclick="purchase_action(event)" {{if x.num ==0:}} disabled style="opacity:20%;"{{pass}}>Purchase</button>                                </div>
                             </form>
                         </p>
                         <p>

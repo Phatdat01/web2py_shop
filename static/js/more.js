@@ -1,3 +1,10 @@
+function purchase_action(event) {
+    var form = event.target.closest('form');
+    form.querySelector('input[name="purchase"]').value = "1";
+    form.submit();
+    event.preventDefault();
+}
+
 function changeQuantity(delta) {
     var input = event.target.parentNode.querySelector('input[name="quantity"]');
     var currentValue = parseInt(input.value, 10);
