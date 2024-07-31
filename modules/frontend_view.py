@@ -8,6 +8,9 @@ class FrontendView:
         return button
 
     def show_buttons(self, list_button):
+        """
+        Display a list[[url, btn_name],...] to a row (display flex)
+        """
         list_class_name = ["btn-success","btn-primary","btn-secondary","btn-danger"]
         lst_btn = []
         for i in range(len(list_button)):
@@ -21,6 +24,9 @@ class FrontendView:
         return button
     
     def show_change_btn(self, id, num):
+        """
+        Show button relate to up or down
+        """
         text = "+" if num > 0 else "-"
         btn = BUTTON(
             text,
@@ -30,6 +36,9 @@ class FrontendView:
         return btn
     
     def show_action_btn(self, url: str, id: str, text, class_name: str = "", style: str = ""):
+        """
+        display btn with submit
+        """
         td = FORM(
             INPUT(
                 _type="hidden",
@@ -55,13 +64,22 @@ class FrontendView:
     def check_col(self, x, is_cart, col, permission: bool = False):
         value_col = x.get(col)
         # Check purchase button
-        if col == "purchase_btn":
-            td = self.show_action_btn(
-                url=URL('web2py_shop', 'orders','purchase'),
-                class_name="btn-warning",
-                text="Purchase",
-                id=x.get("carts.id")
-            )
+        if col == "add_btn":
+            td =TD(
+                INPUT(_name = "check", _value ="0", _hidden=True, _id=f"check_{x.get('carts.id')}"),
+                BUTTON("Add",
+                    _class="btn-secondary",
+                    _id = f"btn_{x.get('carts.id')}",
+                    _onclick=f"changeRowColorAndCheck({x.get('carts.id')})"
+                )
+            )   
+
+            # self.show_action_btn(
+            #     url=URL('web2py_shop', 'orders','purchase'),
+            #     class_name="btn-secondary",
+            #     text="Add",
+            #     id=x.get("carts.id")
+            # )
         # Check delete button
         elif col == "delete_btn":
             td = self.show_action_btn(
@@ -101,10 +119,26 @@ class FrontendView:
             td = value_col
         return td
 
+    def check_th(self, name):
+        if name =="All":
+            td = B(
+                    INPUT(_name = "check", _value ="0", _hidden=True, _id=f"check_all"),
+                    BUTTON("All",
+                        _class="btn-success",
+                        _id = f"btn_all",
+                        _onclick=f"changeAllRow()"
+                    )
+                )
+        else:
+            td = B(name)
+        return td
+
     def show_table(self, th_list: List[str], column_list: List[str], table, is_cart: bool = False, permission:bool=False):
         try:
             if table:
-                th = TH(XML("".join(str(TD(B(name))) for name in th_list)))
+                th = TH()
+                for name in th_list:
+                    th.append(TD(self.check_th(name)))
                 tr = [
                     TR(
                         *[TD(self.check_col(x,is_cart,col, permission)) for col in column_list]

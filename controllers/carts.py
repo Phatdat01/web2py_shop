@@ -19,8 +19,8 @@ class Carts:
 
         list_id = [x.cart_id for x in db(db.orders).select(db.orders.cart_id)]
         rows = form_process.check_purchased_row(table=rows, list_id=list_id)
-        th_list =["Shop Item","Num"]
-        column_list=["carts.id","shop.shop_img","shop.shop_item","carts.num", "show_user","purchase_btn","delete_btn"]
+        th_list =["Shop Item","Num","","","","","All"]
+        column_list=["carts.id","shop.shop_img","shop.shop_item","carts.num", "show_user","add_btn","delete_btn"]
         table = view_process.show_table(
             th_list=th_list,
             column_list=column_list,
@@ -28,6 +28,12 @@ class Carts:
             is_cart=True,
             permission= auth_creater
         )
+        # purchase_btn = FORM(
+        #     BUTTON(B("BUY"), _type="submit", _class="btn-warning",_style="font-size:25px; border-radius:20%"),
+        #     table,
+        #     _action=URL("web2py_shop","orders","done"),
+        #     _method="post"
+        # ) 
 
         form = view_process.display_body(
             head="",
